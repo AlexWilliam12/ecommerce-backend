@@ -27,7 +27,7 @@ public class ImagesService {
 
             ObjectMapper mapper = new ObjectMapper();
 
-            JsonNode node = mapper.readTree(new File("src/main/resources/base64Img.json"));
+            JsonNode node = mapper.readTree(new File("src/main/resources/static/base64Img.json"));
 
             var fields = node.fields();
 
@@ -37,7 +37,7 @@ public class ImagesService {
                 String value = entry.getValue().asText();
 
                 if (value.equals(hash.get())) {
-                    return entry.getKey();
+                    return "http://localhost:8080/images/" + entry.getKey();
                 }
             }
             return null;
@@ -80,7 +80,7 @@ public class ImagesService {
             ObjectNode node = mapper.createObjectNode();
             node.put(filename, task.get());
 
-            File file = new File("src/main/resources/base64Img.json");
+            File file = new File("src/main/resources/static/base64Img.json");
 
             JsonNode json = mapper.readTree(file);
 
@@ -102,7 +102,8 @@ public class ImagesService {
 
             DigestInputStream dis = new DigestInputStream(image.getInputStream(), md);
 
-            while (dis.read() != -1) ;
+            while (dis.read() != -1)
+                ;
 
             byte[] hashBytes = md.digest();
 
@@ -149,7 +150,7 @@ public class ImagesService {
 
             ObjectMapper mapper = new ObjectMapper();
 
-            File file = new File("src/main/resources/base64Img.json");
+            File file = new File("src/main/resources/static/base64Img.json");
 
             ObjectNode node = (ObjectNode) mapper.readTree(file);
 
